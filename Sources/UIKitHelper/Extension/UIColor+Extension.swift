@@ -1,7 +1,7 @@
 import UIKit
 
 extension UIColor {
-    static func dynamicColor(
+    public static func dynamicColor(
         light: UIColor,
         dark: UIColor
     ) -> UIColor {
