@@ -11,10 +11,15 @@ final class UIKitHelperTests: XCTestCase {
         childView.backgroundColor = .blue
 
         // act
-        parentView.addSubview(childView)
+        parentView.addSubview(childView) {
+            $0.width.equalTo(100)
+            $0.height.equalTo(200)
+        }
 
         // assert
         XCTAssertTrue(parentView.subviews.contains(childView))
+        XCTAssertEqual(childView.constraints[0].constant, 100)
+        XCTAssertEqual(childView.constraints[1].constant, 200)
     }
 
     func test_viewLayoutable_addConstraint() {
