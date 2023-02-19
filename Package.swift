@@ -13,10 +13,18 @@ let package = Package(
             targets: ["UIKitHelper"]
         ),
     ],
+    dependencies: [
+        .package(
+            url: "https://github.com/SnapKit/SnapKit.git",
+            from: "5.6.0"
+        )
+    ],
     targets: [
         .target(
             name: "UIKitHelper",
-            dependencies: []
+            dependencies: [
+                "SnapKit"
+            ]
         ),
         .testTarget(
             name: "UIKitHelperTests",

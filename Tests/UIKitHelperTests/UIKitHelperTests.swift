@@ -17,6 +17,22 @@ final class UIKitHelperTests: XCTestCase {
         XCTAssertTrue(parentView.subviews.contains(childView))
     }
 
+    func test_viewLayoutable_addConstraint() {
+        // arrange
+        let view = UIView()
+
+        // act
+        view.addConstraint {
+            $0.width.equalTo(100)
+            $0.height.equalTo(200)
+        }
+
+        // assert
+        XCTAssertEqual(view.constraints.count, 2)
+        XCTAssertEqual(view.constraints[0].constant, 100)
+        XCTAssertEqual(view.constraints[1].constant, 200)
+    }
+
     func test_viewLayoutable_modifier() {
         // arrange
         let label = UILabel()
