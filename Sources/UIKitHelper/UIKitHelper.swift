@@ -23,15 +23,15 @@ extension ViewLayoutable where Self: UIView {
     @discardableResult
     public func addSubview<T: UIView>(
         _ child: T,
-        configuration: ((T) -> Void)? = nil
+        _ configuration: ((ConstraintMaker) -> Void)
     ) -> Self {
         addSubview(child)
-        configuration?(child)
+        child.snp.makeConstraints(configuration)
         return self
     }
 
     @discardableResult
-    public func addConstraint(configuration: (ConstraintMaker) -> Void) -> Self {
+    public func addConstraint(_ configuration: (ConstraintMaker) -> Void) -> Self {
         snp.makeConstraints(configuration)
         return self
     }
@@ -52,7 +52,7 @@ extension ViewLayoutable where Self: UIView {
     }
 
     @discardableResult
-    public func configure(configuration: (Self) -> Void) -> Self {
+    public func configure(_ configuration: (Self) -> Void) -> Self {
         configuration(self)
         return self
     }
