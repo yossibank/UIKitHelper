@@ -1,3 +1,4 @@
+import SnapKit
 import UIKit
 
 public struct ViewStyle<T> {
@@ -26,6 +27,12 @@ extension ViewLayoutable where Self: UIView {
     ) -> Self {
         addSubview(child)
         configuration?(child)
+        return self
+    }
+
+    @discardableResult
+    public func addConstraint(configuration: (ConstraintMaker) -> Void) -> Self {
+        snp.makeConstraints(configuration)
         return self
     }
 
