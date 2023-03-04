@@ -38,7 +38,7 @@ final class UIKitHelperTests: XCTestCase {
         XCTAssertEqual(view.constraints[1].constant, 200)
     }
 
-    func test_viewLayoutable_modifier() {
+    func test_viewModifiable_modifier() {
         // arrange
         let label = UILabel()
 
@@ -51,7 +51,7 @@ final class UIKitHelperTests: XCTestCase {
         XCTAssertEqual(label.backgroundColor, .red)
     }
 
-    func test_viewLayoutable_apply() {
+    func test_viewModifiable_apply() {
         // arrange
         let label = UILabel()
         let labelStyle = ViewStyle<UILabel> {
@@ -67,7 +67,7 @@ final class UIKitHelperTests: XCTestCase {
         XCTAssertEqual(label.backgroundColor, .red)
     }
 
-    func test_viewLayoutable_configure() {
+    func test_viewModifiable_configure() {
         // arrange
         let button = UIButton()
 

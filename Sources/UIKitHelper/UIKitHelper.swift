@@ -1,23 +1,7 @@
 import SnapKit
 import UIKit
 
-public struct ViewStyle<T> {
-    let style: (T) -> Void
-
-    public init(style: @escaping (T) -> Void) {
-        self.style = style
-    }
-}
-
-public protocol Stylable {}
-
-extension Stylable {
-    fileprivate func apply(style: ViewStyle<Self>) {
-        style.style(self)
-    }
-}
-
-public protocol ViewLayoutable: Stylable {}
+public protocol ViewLayoutable {}
 
 extension ViewLayoutable where Self: UIView {
     @discardableResult
@@ -35,7 +19,13 @@ extension ViewLayoutable where Self: UIView {
         snp.makeConstraints(configuration)
         return self
     }
+}
 
+extension UIView: ViewLayoutable {}
+
+public protocol ViewModifiable: Stylable {}
+
+extension ViewModifiable {
     @discardableResult
     public func modifier<T>(
         _ keyPath: ReferenceWritableKeyPath<Self, T>,
@@ -46,16 +36,30 @@ extension ViewLayoutable where Self: UIView {
     }
 
     @discardableResult
-    public func apply(_ style: ViewStyle<Self>) -> Self {
-        apply(style: style)
-        return self
-    }
-
-    @discardableResult
     public func configure(_ configuration: (Self) -> Void) -> Self {
         configuration(self)
         return self
     }
 }
 
-extension UIView: ViewLayoutable {}
+extension ViewModifiable where Self: UIView {
+    @discardableResult
+    public func apply(_ style: ViewStyle<Self>) -> Self {
+        apply(style: style)
+        return self
+    }
+}
+
+extension ViewModifiable where Self: CALayer {
+    @discardableResult
+    public func apply(_ style: ViewStyle<Self>) -> Self {
+        apply(style: style)
+        return self
+    }
+}
+
+extension UIView: ViewModifiable {}
+
+extension CALayer: ViewModifiable {}
+
+extension UIGestureRecognizer: ViewModifiable {}
